@@ -1,8 +1,8 @@
 import { CrearproveedorService } from './../../../service/proveedor/crearproveedor.service';
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import swal from 'sweetalert';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
+import swal from 'sweetalert2'
 
 
 
@@ -32,8 +32,8 @@ export class CrearproveedoresComponent implements OnInit {
 
 
   constructor(private fb: FormBuilder,
-              private ordenService: CrearproveedorService
-              ) { }
+    private ordenService: CrearproveedorService
+  ) { }
 
   // tslint:disable-next-line: typedef
   ngOnInit() {
@@ -44,7 +44,7 @@ export class CrearproveedoresComponent implements OnInit {
 
   }
 
-   filterCambioCitas(): void {
+  filterCambioCitas(): void {
 
     this.legalPerson = this.fb.group({
 
@@ -65,12 +65,12 @@ export class CrearproveedoresComponent implements OnInit {
 
   }
 
-  naturalPersonFilter(): void{
+  naturalPersonFilter(): void {
 
     this.naturalPerson = this.fb.group({
       userProviderNit: [''],
-      userProviderName: [null, [Validators.required, Validators.pattern(/^[a-zA-Z ]*$/), Validators.minLength(3)]],
-      userProviderLastname: ['', [Validators.required, Validators.pattern(/^[a-zA-Z ]*$/), Validators.minLength(3)]],
+      userProviderName: [null, [Validators.required, Validators.pattern(/^[a-zA-ZÀ-ÿ\u00f1\u00d1 ]*$/), Validators.minLength(3)]],
+      userProviderLastname: ['', [Validators.required, Validators.pattern(/^[a-zA-ZÀ-ÿ\u00f1\u00d1 ]*$/), Validators.minLength(3)]],
       userProviderEmail: ['', [Validators.required, Validators.pattern(/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)]],
       userProviderEmailApprover: ['', [Validators.required, Validators.pattern(/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)]],
       userProviderNameCompany: [' '],
@@ -78,54 +78,63 @@ export class CrearproveedoresComponent implements OnInit {
       documentType: ['', [Validators.required]],
       userproviderType: ['', [Validators.required]],
       providertypeId: ['1'],
-      accountinguserId: ['2', ],
+      accountinguserId: ['2',],
     });
 
   }
 
 
-  onSubmitLegalPerson(): void{
+  onSubmitLegalPerson(): void {
+
+    let objeto: any = {};
+
+    objeto.datosPJId = "0";
+    objeto.datosPJFecha = this.date;
+    objeto.datosPJTipoIdent = this.legalPerson.value.documentType;
+    objeto.datosPJResidente = "";
+    objeto.datosPJIdentificacion = this.legalPerson.value.userProviderNit;
+    objeto.datosPJDigitoVerifica = 0;
+    objeto.datosPJRazonSocial = this.legalPerson.value.userProviderNameCompany;
+    objeto.datosPJTelefono = '';
+    objeto.datosPJDireccion = '';
+    objeto.datosPJEmail = this.legalPerson.value.userProviderEmail;
+    objeto.datosPJNomRepresent = '';
+    objeto.datosPJIdentRepresent = ''
+    objeto.datosPJTeleRepresent = '';
+    objeto.datosPJEmailRepresent = this.legalPerson.value.userProviderEmailApprover;
+    objeto.datosPJOperacionesInter = '';
+    objeto.datosPJTipoContribuyente = '';
+    objeto.datosPJTipoOperacionInt = '';
+    objeto.datosPJRecursosPublicos = '';
+    objeto.datosPJActEcoNro = '';
+    objeto.datosPJActEcoTarifa = '';
+    objeto.datosPJNombreBanco = '';
+    objeto.datosPJNroCuenta = '';
+    objeto.datosPJModalidad = '';
+    objeto.datosPJCodigoAbaSwift = '';
+    objeto.datosPJPersonaPublica = '';
+    objeto.datosPJTratamiento = '';
+    objeto.datosPJCiudad = '';
+    objeto.datosPJPais = '';
+    objeto.datosPJPaisBanco = '';
+    objeto.datosPJcorreoJefe = this.legalPerson.value.userProviderEmailApprover;
 
 
-    this.dataPersonaNatural.datosPJId = "0";
-    this.dataPersonaNatural.datosPJFecha = this.date;
-    this.dataPersonaNatural.datosPJTipoIdent = this.legalPerson.value.documentType;
-    this.dataPersonaNatural.datosPJResidente = "";
-    this.dataPersonaNatural.datosPJIdentificacion = this.legalPerson.value.userProviderNit;
-    this.dataPersonaNatural.datosPJDigitoVerifica = 0;
-    this.dataPersonaNatural.datosPJRazonSocial = this.legalPerson.value.userProviderNameCompany;
-    this.dataPersonaNatural.datosPJTelefono = '';
-    this.dataPersonaNatural.datosPJDireccion = '';
-    this.dataPersonaNatural.datosPJEmail = this.legalPerson.value.userProviderEmail;
-    this.dataPersonaNatural.datosPJNomRepresent = '';
-    this.dataPersonaNatural.datosPJIdentRepresent = ''
-    this.dataPersonaNatural.datosPJTeleRepresent = '';
-    this.dataPersonaNatural.datosPJEmailRepresent = this.legalPerson.value.userProviderEmailApprover;
-    this.dataPersonaNatural.datosPJOperacionesInter = '';
-    this.dataPersonaNatural.datosPJTipoContribuyente = '';
-    this.dataPersonaNatural.datosPJTipoOperacionInt = '';
-    this.dataPersonaNatural.datosPJRecursosPublicos = '';
-    this.dataPersonaNatural.datosPJActEcoNro = '';
-    this.dataPersonaNatural.datosPJActEcoTarifa = '';
-    this.dataPersonaNatural.datosPJNombreBanco = '';
-    this.dataPersonaNatural.datosPJNroCuenta = '';
-    this.dataPersonaNatural.datosPJModalidad = '';
-    this.dataPersonaNatural.datosPJCodigoAbaSwift = '';
-    this.dataPersonaNatural.datosPJPersonaPublica = '';
-    this.dataPersonaNatural.datosPJTratamiento = '';
-    this.dataPersonaNatural.datosPJCiudad = '';
-    this.dataPersonaNatural.datosPJPais = '';
-    this.dataPersonaNatural.datosPJPaisBanco = '';
+
+    this.dataPersonaNatural.datosPJ = objeto;
 
 
 
-    if (this.legalPerson){
+
+
+
+    if (this.legalPerson) {
 
 
       this.ordenService.crearLegalPerson(this.dataPersonaNatural).subscribe(
         (data) => {
 
-          swal({
+          swal.fire({
             title: '',
             text: 'Registro realizado correctamente.',
             icon: 'success',
@@ -135,44 +144,44 @@ export class CrearproveedoresComponent implements OnInit {
 
           console.log(error);
 
-          if (error.status ===  200 || error.status ===  201 || error.status ===  202 ) {
+          if (error.status === 200 || error.status === 201 || error.status === 202) {
 
-          swal({
-             title: '',
-             text: 'Registro realizado correctamente.',
-             icon: 'success',
-           });
+            swal.fire({
+              title: '',
+              text: 'Registro realizado correctamente.',
+              icon: 'success',
+            });
 
-           setTimeout(() => {
-            /** spinner ends after 5 seconds */
-            this.naturalPerson.reset();
-            window.location.reload();
+            setTimeout(() => {
+              /** spinner ends after 5 seconds */
+              this.naturalPerson.reset();
+              window.location.reload();
 
-          }, 6000);
+            }, 6000);
 
-         } else {
+          } else {
 
-           swal({
-             title: '',
-             text: 'Comuniquese con el administrador',
-             icon: 'error',
-           });
+            swal.fire({
+              title: '',
+              text: 'Comuniquese con el administrador',
+              icon: 'error',
+            });
 
-           setTimeout(() => {
-            /** spinner ends after 5 seconds */
-            this.naturalPerson.reset();
-            window.location.reload();
+            setTimeout(() => {
+              /** spinner ends after 5 seconds */
+              this.naturalPerson.reset();
+              window.location.reload();
 
-          }, 6000);
+            }, 6000);
 
 
-         }
+          }
         }
       );
 
     } else {
 
-      swal({
+      swal.fire({
         title: 'Good job!',
         text: 'You clicked the button!',
         icon: 'error',
@@ -182,17 +191,18 @@ export class CrearproveedoresComponent implements OnInit {
 
   }
 
-  onSubmit(): void{
+  onSubmit(): void {
 
 
-    if ( this.naturalPerson ) {
+    if (this.naturalPerson) {
 
       this.dataPersonaNatural.datosPNId = "0";
       this.dataPersonaNatural.datosPNFecha = this.date;
       this.dataPersonaNatural.datosPNTipoIdentifica = this.naturalPerson.value.documentType;
       this.dataPersonaNatural.datosPNResidente = "";
       this.dataPersonaNatural.datosPNIdentificacion = this.naturalPerson.value.userProviderNit;
-      this.dataPersonaNatural.datosPNApellidosNombres = `${this.naturalPerson.value.userProviderLastname} ${this.naturalPerson.value.userProviderName}`;
+      this.dataPersonaNatural.datosPNApellidos= `${this.naturalPerson.value.userProviderLastname}`;
+      this.dataPersonaNatural.datosPNNombres= `${this.naturalPerson.value.userProviderName}`;   
       this.dataPersonaNatural.datosPNDireccion = '';
       this.dataPersonaNatural.datosPNOcupacion = '';
       this.dataPersonaNatural.datosPNTelefono = '';
@@ -213,6 +223,7 @@ export class CrearproveedoresComponent implements OnInit {
       this.dataPersonaNatural.datosPNPersonaPublica = '';
       this.dataPersonaNatural.datosPNTratamiento = '';
       this.dataPersonaNatural.datosPNDeclOrigenFondo = '';
+      this.dataPersonaNatural.datosPNcorreoJefe = this.naturalPerson.value.userProviderEmailApprover;
 
       console.log(this.dataPersonaNatural);
 
@@ -221,28 +232,25 @@ export class CrearproveedoresComponent implements OnInit {
 
 
         }, (error: HttpErrorResponse) => {
-           console.log(error);
+          console.log(error);
 
-           if (error.status ===  200 || error.status ===  201 || error.status ===  202 ) {
+          if (error.status === 200 || error.status === 201 || error.status === 202) {
 
 
-           swal({
+            swal.fire({
               title: '',
               text: 'Registro realizado correctamente.',
               icon: 'success',
-            });
+            }).then((result) => {
+              this.naturalPerson.reset();
+              window.location.reload();
+            })
 
-            setTimeout(() => {
-              /** spinner ends after 5 seconds */
-              alert()
-              //this.naturalPerson.reset();
-             // window.location.reload();
-
-            }, 6000);
+            
 
           } else {
 
-            swal({
+            swal.fire({
               title: '',
               text: 'Comuniquese con el administrador',
               icon: 'error',
@@ -261,7 +269,7 @@ export class CrearproveedoresComponent implements OnInit {
 
     } else {
 
-      swal({
+      swal.fire({
         title: '',
         text: 'Verifique los datos ingresados',
         icon: 'error',
@@ -271,14 +279,14 @@ export class CrearproveedoresComponent implements OnInit {
   }
 
 
-  close(): void{
+  close(): void {
 
-    window.location.href='/wps/portal/terceros/inicio';
+    window.location.href = '/wps/portal/terceros/inicio';
 
   }
 
 
-  select(tipoTercero: string): void{
+  select(tipoTercero: string): void {
 
     if (tipoTercero === '1') {
       this.legalPersonform = false;

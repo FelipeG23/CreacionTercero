@@ -83,12 +83,12 @@
               <div *ngIf="form_fsfb">
                 <div class="">
                   <mat-form-field class="w-100">
-                    <input matInput placeholder="Nombres"  type="text" formControlName="userProviderName"/>
+                    <input matInput oninput="this.value = this.value.toUpperCase()" placeholder="Nombres"  type="text" formControlName="userProviderName"/>
                     <mat-error *ngIf="naturalPerson.get('userProviderName').hasError('required')">
                       Este campo es obligatorio.
                     </mat-error>
                     <mat-error *ngIf="naturalPerson.get('userProviderName').hasError('pattern')">
-                      El nombre no puede llevar números.
+                      El nombre no puede contener números o caracteres especiales.
                     </mat-error>
                     <mat-error *ngIf="naturalPerson.get('userProviderName').hasError('minlength')">
                       La longitud del texto excede el mínimo permitido.
@@ -100,12 +100,12 @@
           <div class="colum col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
            <div *ngIf="form_fsfb">
             <mat-form-field class="w-100">
-              <input matInput placeholder="Apellidos" type="text" formControlName="userProviderLastname"/>
+              <input matInput placeholder="Apellidos" oninput="this.value = this.value.toUpperCase()" type="text" formControlName="userProviderLastname"/>
               <mat-error *ngIf="naturalPerson.get('userProviderLastname').hasError('required')">
                 Este campo es obligatorio.
               </mat-error>
               <mat-error *ngIf="naturalPerson.get('userProviderLastname').hasError('pattern')">
-                El apellido no puede llevar números.
+                El apellido no puede contener números o caracteres especiales.
               </mat-error>
               <mat-error *ngIf="naturalPerson.get('userProviderLastname').hasError('minlength')">
                 La longitud del texto excede el mínimo permitido.
@@ -135,16 +135,16 @@
                     Seleccione un tipo de documento
                   </mat-option>
                   <mat-option value="CC">
-                    Cédula de ciudadanía
+                    CÉDULA DE CIUDADANÍA
                   </mat-option>
                   <mat-option value="CE">
-                    Cédula de extranjería
+                    CÉDULA DE EXTRANJERÍA
                   </mat-option>
                   <mat-option value="PA">
-                    Pasaporte
+                    PASAPORTE
                   </mat-option>
                   <mat-option value="OT">
-                    Otro (cual)
+                    OTRO (CUAL)
                   </mat-option>
                 </mat-select>
                 <mat-error *ngIf="naturalPerson.get('documentType').hasError('required') ">
@@ -183,8 +183,8 @@
                   <mat-option value="Medico">
                     Médico
                   </mat-option>
-                  <mat-option value="Tercero">
-                    Tercero
+                  <mat-option value="Proveedor">
+                    Proveedor
                   </mat-option>
                 </mat-select>
                 <mat-error *ngIf="naturalPerson.get('userproviderType').hasError('required') ">
@@ -223,12 +223,12 @@
           <div class="colum col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
             <div class="mt-2">
               <mat-form-field class="w-100">
-                <input matInput placeholder="Razón social"  type="text" formControlName="userProviderNameCompany"/>
+                <input matInput placeholder="Razón social" oninput="this.value = this.value.toUpperCase()"  type="text" formControlName="userProviderNameCompany"/>
                 <mat-error *ngIf="legalPerson.get('userProviderNameCompany').hasError('required')">
                   Este campo es obligatorio.
                 </mat-error>
                 <mat-error *ngIf="legalPerson.get('userProviderNameCompany').hasError('pattern')">
-                  El nombre no puede llevar números.
+                  El nombre no puede contener números o caracteres especiales.
                 </mat-error>
                 <mat-error *ngIf="legalPerson.get('userProviderNameCompany').hasError('minlength')">
                   La longitud del texto excede el mínimo permitido.
@@ -300,8 +300,8 @@
                   <mat-option value="Médico">
                     Médico
                   </mat-option>
-                  <mat-option value="Tercero">
-                    Tercero
+                  <mat-option value="Proveedor">
+                    Proveedor
                   </mat-option>
                 </mat-select>
                 <mat-error *ngIf="legalPerson.get('userproviderType').hasError('required') ">
